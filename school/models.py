@@ -17,6 +17,7 @@ class User(models.Model):
         db_table = 'User'
 
 class Marks(models.Model):
+    id = models.AutoField(primary_key=True)
     marks = models.IntegerField(null=True)
     studentId = models.ForeignKey(User)
     subjectName = models.CharField(max_length=50)
@@ -25,6 +26,7 @@ class Marks(models.Model):
         db_table = 'Marks'
 
 class Attendence(models.Model):
+    id = models.AutoField(primary_key=True)
     studentId = models.ForeignKey(User)
     date = models.DateField(default=timezone.now())
     isPresent = models.IntegerField(default=1)
@@ -33,6 +35,7 @@ class Attendence(models.Model):
         db_table = 'Attendence'
 
 class TeacehrSubjectMapping(models.Model):
+    id = models.AutoField(primary_key=True)
     teacherId = models.ForeignKey(User)
     semester = models.IntegerField()
     subject = models.CharField(max_length=50)

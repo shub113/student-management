@@ -4,8 +4,9 @@ import { Link } from 'react-router-dom';
 
 const navItem = [
     { label: 'User Mangement', path: '/user-managemt', showFor: [0] },
-    { label: 'Marks Mangement', path: '/marks-managemt', showFor: [1] },
-    { label: 'Attendance Mangement', path: '/attendance-managemt', showFor: [0, 1] },
+    { label: 'Subject Mangement', path: '/subject-managemt', showFor: [0] },
+    { label: 'Marks Mangement', path: '/marks-managemt', showFor: [0,1] },
+    { label: 'Attendance Mangement', path: '/attendance-managemt', showFor: [0,1] },
     { label: 'Show Attendance', path: '/attendance', showFor: [2, 3] },
     { label: 'Show Marks', path: '/marks', showFor: [2, 3] }
 ]

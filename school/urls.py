@@ -17,9 +17,15 @@ from django.conf.urls import url
 from school.views import html_view
 from school.api import login
 from school.api import signup
+from school.api import userList
+from school.api import teacherMapping
+from school.api import addMarks
 
 urlpatterns = [
     url(r'^abc/', html_view),
-    url(r'^loginUser/$', login ),
-    url(r'^signup/$', signup )   
+    url(r'^loginUser/$', login),
+    url(r'^signup/$', signup),
+    url(r'^userList/$', userList),
+    url(r'^teacher-mapping/$', teacherMapping),
+    url(r'^add-marks/$', addMarks)
 ]
