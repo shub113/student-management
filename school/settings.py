@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'school'
 ]
 
 MIDDLEWARE = [
@@ -63,6 +64,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',
             ],
         },
     },
@@ -76,9 +78,17 @@ WSGI_APPLICATION = 'school.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'school_management',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '',
+        'PORT': '',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    # }
 }
 
 
@@ -121,11 +131,11 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Manual Config starts from here : 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = ''
 
-STATICFILES_DIRS = ['']
+STATICFILES_DIRS = ['F:/WorkSpace VSC/SchoolManagement/school/static']
 
-TEMPLATE_DIRS = ['F:/WorkSpace VSC/SchoolManagement/school/templates/']
+# TEMPLATE_DIRS = ['F:/WorkSpace VSC/SchoolManagement/school/templates/']
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,

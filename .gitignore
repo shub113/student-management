@@ -1,6 +1,7 @@
 *.pyc
 .vscode/
 db.sqlite3
-/static/node_modules/
 /static/package-lock.json
+/static/node_modules/
 /static/build/
+**/migrations/*
