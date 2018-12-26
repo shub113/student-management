@@ -35,6 +35,7 @@ export class Login extends React.Component {
                     typePathMapping.map((ins) => {
                         const keys = Object.keys(ins)[0]
                         if (keys == response.userType) {
+                            localStorage.setItem('userType', response.userType);
                             this.setState({ logedIn: true, path: ins[keys] })
                         }
                     });
