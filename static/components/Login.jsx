@@ -36,6 +36,7 @@ export class Login extends React.Component {
                         const keys = Object.keys(ins)[0]
                         if (keys == response.userType) {
                             localStorage.setItem('userType', response.userType);
+                            localStorage.setItem('userId', response.id);
                             this.setState({ logedIn: true, path: ins[keys] })
                         }
                     });

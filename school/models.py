@@ -11,7 +11,7 @@ class User(models.Model):
     contact = models.CharField(max_length=10)
     email = models.EmailField(max_length=50)
     address = models.CharField(max_length=100)
-    parentId = models.ForeignKey('self' ,default=None)
+    parentId = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'User'
@@ -19,6 +19,7 @@ class User(models.Model):
 class Marks(models.Model):
     id = models.AutoField(primary_key=True)
     marks = models.IntegerField(null=True)
+    semester = models.IntegerField()
     studentId = models.ForeignKey(User)
     subjectName = models.CharField(max_length=50)
 

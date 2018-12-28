@@ -11,7 +11,6 @@ export class ShowAttendance extends React.Component {
             studentId: null,
             date: null,
             isPresent: null,
-            // userType:null
         };
     }
 

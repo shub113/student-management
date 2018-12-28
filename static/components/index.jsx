@@ -7,7 +7,8 @@ import { Subject } from './Subject.jsx'
 import { Marks } from './Marks.jsx';
 import { Attendance } from './Attendance.jsx';
 import { ShowAttendance } from './ShowAttendance.jsx';
-import { Redirect } from 'react-router'
+import { ShowMarks } from './ShowMarks.jsx';
+import { Redirect } from 'react-router';
 
 const ProtectedRoute = ({path, component}) => {
     const userType = localStorage.getItem('userType');
@@ -28,9 +29,10 @@ export class Index extends React.Component {
                     <ProtectedRoute path="/subject-managemt" component={Subject} />
                     <ProtectedRoute path="/marks-managemt" component={Marks} />
                     <ProtectedRoute path="/teacher" component={Marks} />
-                    <ProtectedRoute path="/attendence-managemt" component={Attendance} />
+                    <ProtectedRoute path="/attendance-managemt" component={Attendance} />
                     <ProtectedRoute path="/attendance" component={ShowAttendance} />
-
+                    <ProtectedRoute path="/marks" component={ShowMarks} />
+                    <ProtectedRoute path="/student" component={ShowMarks} />
                 </Switch>
             </HashRouter>
         );

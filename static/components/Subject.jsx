@@ -1,6 +1,5 @@
 import * as React from 'react'
 import '../css/main.css'
-
 import $ from 'jquery'
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { CustomNavbar } from './CustumNavbar.jsx';
@@ -12,7 +11,6 @@ export class Subject extends React.Component {
         this.state = {
             dropdownOpen: false,
             teacherList: [],
-            // userType: null,
             semester: null,
             subject: '',
             teacherId: null
@@ -20,24 +18,18 @@ export class Subject extends React.Component {
     }
 
     componentDidMount() {
-        this.getList()
-    }
-    getList = () => {
-        // const { userType } = this.state;
-        return (
-            $.ajax({
-                url: `http://localhost:8000/userList/`,
-                type: 'POST',
-                data: { userType: 1 },
-                success: (response) => {
-                    this.setState({ teacherList: response.data})
-                },
-                error: (request, status, error) => {
-                    console.log(error);
-                    alert("Error!!!")
-                }
-            })
-        );
+        $.ajax({
+            url: `http://localhost:8000/userList/`,
+            type: 'POST',
+            data: { userType: 1 },
+            success: (response) => {
+                this.setState({ teacherList: response.data})
+            },
+            error: (request, status, error) => {
+                console.log(error);
+                alert("Error!!!")
+            }
+        })
     }
 
     submit = () => {
@@ -48,7 +40,7 @@ export class Subject extends React.Component {
                 type: 'POST',
                 data: { semester, subject, teacherId },
                 success: (response) => {
-                    console.log("Done");
+                    alert("Done")
                 },
                 error: (request, status, error) => {
                     console.log(error);
