@@ -1,30 +1,30 @@
-import * as React from 'react'
-import { Table } from 'reactstrap';
+import * as React from 'react';
 import { CustomNavbar } from './CustumNavbar.jsx';
+import { Table } from 'reactstrap';
 import $ from 'jquery'
 
-export class ShowMarks extends React.Component {
+
+export class ShowChilds extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            marks: null,
-            subjectName: null,
-            semester: null,
-            marksList: []
+            studentId: null,
+            Studentname: null,
+            childList: []
         };
     }
 
     componentDidMount() {
-        const userId = Number(localStorage.getItem('userId'))
+        const parentId = Number(localStorage.getItem('userId'))
         console.log(localStorage.getItem('userId'));
 
         $.ajax({
-            url: `http://localhost:8000/marks-list/`,
+            url: `http://localhost:8000/childs/`,
             type: 'POST',
-            data: { userId },
+            data: { parentId },
             success: (response) => {
-                this.setState({ marksList: response.data });
+                this.setState({ childList: response.data });
             },
             error: (request, status, error) => {
                 console.log(error);
@@ -41,18 +41,16 @@ export class ShowMarks extends React.Component {
                     <Table striped>
                         <thead>
                             <tr>
-                                <th>Subject</th>
-                                <th>Semester</th>
-                                <th>Marks</th>
+                                <th>StudentId</th>
+                                <th>Studentname</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {this.state.marksList.map((ins) => {
+                            {this.state.childList.map((ins) => {
                                 return (
                                     <tr>
-                                        <td>{ins.subjectName}</td>
-                                        <td>{ins.semester}</td>
-                                        <td>{ins.marks}</td>
+                                        <td>{ins.id}</td>
+                                        <td>{ins.fullName}</td>
                                     </tr>
                                 );
                             })}

@@ -22,6 +22,7 @@ from school.api import teacherMapping
 from school.api import addMarks
 from school.api import marksList
 from school.api import addAttendance
+from school.api import childList
 
 urlpatterns = [
     url(r'^abc/', html_view),
@@ -32,4 +33,5 @@ urlpatterns = [
     url(r'^add-marks/$', addMarks),
     url(r'^marks-list/$', marksList),
     url(r'^add-attendence/$', addAttendance),
+    url(r'^childs/$', childList),
 ]

@@ -1,4 +1,5 @@
 from school.serializers import UserSerializer
+from school.serializers import MarksSerializer
 from school.models import User
 from school.models import Marks
 from school.models import Attendence
@@ -6,7 +7,9 @@ from school.models import TeacehrSubjectMapping
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.utils import timezone
+import dateutil.parser
+import json
 
 @csrf_exempt
 def login(request):
@@ -48,7 +51,7 @@ def userList(request):
 def marksList(request):
     userId = request.POST.get("userId")
     userObj = Marks.objects.filter(studentId_id=userId)
-    return JsonResponse({'data': UserSerializer(userObj, many=True).data})
+    return JsonResponse({'data': MarksSerializer(userObj, many=True).data})
 
 
 @csrf_exempt
@@ -76,10 +79,22 @@ def addMarks(request):
 
 @csrf_exempt
 def addAttendance(request):
-    studentId = request.POST.get("studentId")
-    date = request.POST.get("date")
-    isPresent = request.POST.get("isPresent")
+    studentList = json.loads(request.POST.get('studentList'))
+    date = dateutil.parser.parse(request.POST.get('date'))
 
-    Attendance.objects.create(
-        studentId_id=studentId, date=date, isPresent=isPresent)
-    return HttpResponse(1)
+    print studentList
+    print date
+    newList = []
+    for items in studentList:
+        # print(items['u\'studentId'])
+        # Attendence.objects.create(studentId_id = items['studentId'], date = date, isPresent = items'isPresent')
+        newList.append(Attendence(studentId_id=items['studentId'], isPresent=items['isPresent'], date= date.strftime('20%y-%m-%d')))
+    Attendence.objects.bulk_create(newList)
+    return HttpResponse(studentList)
+
+@csrf_exempt
+def childList(request):
+    parentId = request.POST.get("parentId")
+    userObj = User.objects.filter(parentId=parentId)
+    return JsonResponse({'data': UserSerializer(userObj, many=True).data})
+

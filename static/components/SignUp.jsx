@@ -1,6 +1,5 @@
 import * as React from 'react';
 import '../css/main.css'
-
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { CustomNavbar } from './CustumNavbar.jsx';
 import $ from 'jquery'
@@ -12,7 +11,7 @@ export class SignUp extends React.Component {
         this.state = {
             dropdownOpen: false,
             dropdownOpenParent: false,
-            username: 'Shubh',
+            username: '',
             password: '',
             address: '',
             fullName: '',

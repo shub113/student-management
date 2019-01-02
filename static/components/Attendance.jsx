@@ -11,7 +11,6 @@ export class Attendance extends React.Component {
             studentList: [],
             studentId: null,
             date: null,
-            isPresent: 0,
             isPresentMarked: []
         };
     }
@@ -22,7 +21,11 @@ export class Attendance extends React.Component {
             type: 'POST',
             data: { userType: 2 },
             success: (response) => {
-                this.setState({ studentList: response.data });
+                const isPresentMarked = this.state.isPresentMarked;
+                response.data.forEach((data) => {
+                    isPresentMarked.push({studentId: data.id, isPresent: 0})
+                })
+                this.setState({ studentList: response.data, isPresentMarked });
             },
             error: (request, status, error) => {
                 console.log(error);
@@ -32,13 +35,14 @@ export class Attendance extends React.Component {
     }
 
     submit = () => {
-        const { studentId, date, isPresent } = this.state;
+        const {isPresentMarked, date} = this.state;
         return (
             $.ajax({
-                url: `http://localhost:8000/`,
+                url: `http://localhost:8000/add-attendence/`,
                 type: 'POST',
-                data: { studentId, date, isPresent },
+                data:{studentList :  JSON.stringify(isPresentMarked), date: new Date(date).toISOString() },
                 success: (response) => {
+                    alert("Done")
                 },
                 error: (request, status, error) => {
                     console.log(error);
@@ -49,22 +53,20 @@ export class Attendance extends React.Component {
     }
 
     handleChange = (e, id, index) => {
-        console.log(this.state.date);
         const isMarked = this.state.isPresentMarked;
         if (e.target.checked) {
-            isMarked.push({id, index}) // [{ id: 0, index: 2 }]
-            this.setState({ isPresent: 1, isPresentMarked: isMarked })
+            isMarked[index] = { studentId:id, isPresent: 1  };
+            this.setState({ isPresentMarked: isMarked })
             console.log(`isMarked`, isMarked);
         } else {
-            const filtered = isMarked.filter(value => value.index !== index)
-            this.setState({ isPresent: 0, isPresentMarked:filtered })
-            console.log(`filtered`, filtered);
+            isMarked[index] = { studentId:id, isPresent: 0  };
+            this.setState({ isPresentMarked: isMarked })
+            console.log(`filtered`, isMarked);
         }
     }
 
     dateChange = (e) => {
-        console.log(`e.target.value`, e.target.value);
-        this.setState({data:$('#datePicker').val()})
+        this.setState({ date: e.target.value })
     }
 
     render() {
@@ -73,8 +75,8 @@ export class Attendance extends React.Component {
                 <CustomNavbar />
                 <div>
                     <div style={{ padding: "5px" }}>
-                        Date : <input style={{ padding: '5px' }} type="date" id="datePicker" onChange={this.dateChange} />
-                        <Button style={{ padding: '5px' }}> Submit </Button>
+                        Date : <input style={{ padding: '5px' }} type="date" onChange={this.dateChange} />
+                        <Button style={{ padding: '5px' }} onClick={this.submit}> Submit </Button>
                     </div>
                     <Table striped>
                         <thead>
@@ -90,7 +92,7 @@ export class Attendance extends React.Component {
                                     <tr>
                                         <th scope="row">{ins.id}</th>
                                         <td>{ins.fullName}</td>
-                                        <td><label><input type="checkbox" onChange={e => this.handleChange(e, ins.id,index)} />Present</label></td>
+                                        <td><label><input type="checkbox" onChange={e => this.handleChange(e, ins.id, index)} />Present</label></td>
                                     </tr>
                                 );
                             })}

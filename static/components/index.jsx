@@ -6,8 +6,8 @@ import { SignUp } from './SignUp.jsx'
 import { Subject } from './Subject.jsx'
 import { Marks } from './Marks.jsx';
 import { Attendance } from './Attendance.jsx';
-import { ShowAttendance } from './ShowAttendance.jsx';
 import { ShowMarks } from './ShowMarks.jsx';
+import { ShowChilds } from './ShowChilds.jsx';
 import { Redirect } from 'react-router';
 
 const ProtectedRoute = ({path, component}) => {
@@ -30,9 +30,10 @@ export class Index extends React.Component {
                     <ProtectedRoute path="/marks-managemt" component={Marks} />
                     <ProtectedRoute path="/teacher" component={Marks} />
                     <ProtectedRoute path="/attendance-managemt" component={Attendance} />
-                    <ProtectedRoute path="/attendance" component={ShowAttendance} />
                     <ProtectedRoute path="/marks" component={ShowMarks} />
                     <ProtectedRoute path="/student" component={ShowMarks} />
+                    <ProtectedRoute path="/parent" component={ShowChilds} />
+                    <ProtectedRoute path="/childs" component={ShowChilds} />
                 </Switch>
             </HashRouter>
         );
